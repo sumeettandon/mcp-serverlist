@@ -1,0 +1,71 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  NEXT_PUBLIC_BASE_URL: ${{ github.event.repository.html_url }}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Lighthouse CI
+        run: npm install -g @lhci/cli@0.12.x
+
+      - name: Lighthouse CI
+        run: |
+          npm run build
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Run axe
+        run: |
+          npm install -g @axe-core/cli
+          npx axe http://localhost:3000 --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa --stdout-json > axe-results.json
+          node scripts/check-axe-results.js
+
+  collect-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect and aggregate data
+        run: |
+          npm run collect
+          npm run aggregate
+
+      - name: Commit and push if changes exist
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add lib/data/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update server statistics [skip ci]" && git push)

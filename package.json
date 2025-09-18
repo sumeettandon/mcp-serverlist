@@ -1,0 +1,46 @@
+{
+  "name": "mcp-serverlist",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "collect": "ts-node scripts/collect-data.ts",
+    "aggregate": "ts-node lib/aggregate.ts",
+    "test:lighthouse": "lhci autorun",
+    "test:axe": "npx axe http://localhost:3000 --tags wcag2a,wcag2aa,wcag21a,wcag21aa",
+    "test": "npm run build && npm run test:lighthouse && npm run test:axe"
+  },
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.284.0",
+    "next": "^14.2.32",
+    "next-themes": "^0.4.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.4",
+    "tailwind-merge": "^1.14.0",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.10.2",
+    "@lhci/cli": "^0.15.1",
+    "@types/node": "^20.19.17",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "@types/recharts": "^1.8.29",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^13.5.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.9.2"
+  }
+}

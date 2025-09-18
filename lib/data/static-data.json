@@ -1,0 +1,38 @@
+{
+  "hourly": [
+    {
+      "timestamp": "2025-09-18T12:00:00Z",
+      "total": 150,
+      "local": 50,
+      "remote": 80,
+      "both": 20
+    }
+  ],
+  "daily": [
+    {
+      "timestamp": "2025-09-18T00:00:00Z",
+      "total": 145,
+      "local": 48,
+      "remote": 77,
+      "both": 20
+    }
+  ],
+  "weekly": [
+    {
+      "timestamp": "2025-09-15T00:00:00Z",
+      "total": 140,
+      "local": 45,
+      "remote": 75,
+      "both": 20
+    }
+  ],
+  "monthly": [
+    {
+      "timestamp": "2025-09-01T00:00:00Z",
+      "total": 135,
+      "local": 42,
+      "remote": 73,
+      "both": 20
+    }
+  ]
+}
