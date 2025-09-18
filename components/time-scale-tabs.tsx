@@ -1,11 +1,17 @@
 import * as React from "react"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs as TabsBase, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TimeScale, formatTimeScale } from "@/lib/chart-utils"
 
 interface TimeScaleTabsProps {
   value: TimeScale
   onValueChange: (value: TimeScale) => void
 }
+
+const Tabs = TabsBase as React.ComponentType<{
+  value?: TimeScale
+  onValueChange?: (value: TimeScale) => void
+  children?: React.ReactNode
+}>
 
 export function TimeScaleTabs({ value, onValueChange }: TimeScaleTabsProps) {
   const scales: TimeScale[] = ['hourly', 'daily', 'weekly', 'monthly']
